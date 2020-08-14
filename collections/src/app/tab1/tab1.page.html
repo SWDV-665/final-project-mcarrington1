@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Your Collection
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div class="ion-text-center">
+    <h3 class="no-item" *ngIf="collections.length === 0">
+      List is empty! Try adding some collection items.
+    </h3>
+  </div>
+  <ion-list>
+      <ion-item-sliding *ngFor="let collection of collections; let i = index">
+        <ion-item>
+          <ion-label>
+            <h2>{{collection.name}}</h2>
+            <p>{{collection.description}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item-options>
+          <ion-item-option (click)="editCollection(collection, i)" ion-button color="secondary" icon-start>
+            <ion-icon slot="icon-only" name="create"></ion-icon>
+          </ion-item-option>
+          <ion-item-option (click)="removeCollection(collection,_id)" ion-button color="danger" icon-start>
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+  </ion-list>
+  <ion-fab ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addCollection()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>      
+</ion-content>
