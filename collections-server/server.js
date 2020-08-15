@@ -22,7 +22,16 @@ app.use(function (req, res, next) {
     next();
 });
 
-// AWS
+// Model
+var Collection = mongoose.model('Collection', {
+    name: String,
+    description: String,
+    image: String,
+    barcode: Number
+});
+
+
+// AWS / S3 Upload - WIP
 const multer  = require('multer');
 const multerS3 = require('multer-s3');
 const AWS = require('aws-sdk');
@@ -42,27 +51,57 @@ const uploadS3 = multer({
         cb(null, {fieldName: file.fieldname})
       },
       key: (req, file, cb) => {
-        cb(null, Date.now().toString() + '-' + file.originalname)
+        cb(null, file.originalname)
+        // cb(null, Date.now().toString() + '-' + file.originalname)
       }
     })
   });
 
-  // temporary file upload to AWS
-  app.post('/upload', uploadS3.single('file'),(req, res) => {
-    console.log(req.file);
-    console.log("Location is :: " + req.file.location);
-  });
+    // temporary file upload to AWS
+    app.post('/upload', uploadS3.single('file'),(req, res) => {
+        console.log(req.file);
+        console.log("Location is :: " + req.file.location);
+      });
 
 //AWS.config.loadFromPath('./s3_config.json');
 //var s3 = new AWS.S3();
 
-// Model
-var Collection = mongoose.model('Collection', {
-    name: String,
-    description: String,
-    image: String,
-    barcode: Number
-});
+
+  // Multer + MongoDB Storage - WIP
+
+  var storage = multer.memoryStorage()
+var upload = multer({ storage: storage })
+
+
+//   var storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, 'uploads')
+//     },
+//     filename: function (req, file, cb) {
+//       cb(null, file.fieldname + '-' + Date.now())
+//     }
+//   })
+
+//   const upload = multer({inMemory: true});
+
+  app.post('/uploadphoto', upload.single('picture'), (req, res) => {
+	var img = req.file.buffer;
+    var encode_image = img.toString('base64');
+    // Define a JSONobject for the image attributes for saving to database
+ 
+    var finalImg = {
+        contentType: req.file.mimetype,
+        image:  new Buffer(encode_image, 'base64')
+    };
+
+    Collection.create(finalImg, (err, result) => {
+        console.log(result)
+
+        if (err) return console.log(err)
+
+        console.log('saved to database')    
+  })
+})
 
 
 // Get all collections items

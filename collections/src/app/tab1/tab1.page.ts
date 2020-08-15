@@ -5,6 +5,8 @@ import { AlertController } from '@ionic/angular';
 import { CollectionsService } from '../collections.service';
 import { InputDialogService } from '../input-dialog.service';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { ImageService } from '../image.service'; // DELETE
+
 
 @Component({
   selector: 'app-tab1',
@@ -18,7 +20,7 @@ export class Tab1Page {
   collections = [];
   errorMessage: string;
 
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController, public dataService: CollectionsService, public inputDialogService: InputDialogService, public socialSharing: SocialSharing) {
+  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController, public dataService: CollectionsService, public inputDialogService: InputDialogService, public socialSharing: SocialSharing, public imageService: ImageService) {
     dataService.dataChanged$.subscribe((dataChanged: boolean) => {
       this.loadCollections();
     });
@@ -55,6 +57,19 @@ export class Tab1Page {
     this.inputDialogService.showAlertConfirmation(collection)
     //this.dataService.removeCollection(collection);
  }
+
+ // DELETE
+ async takePhoto() {
+   console.log('take photo button pressed')
+   
+   this.imageService.pickImage();
+ }
+
+  // DELETE
+  async uploadPhoto() {
+    console.log('upload photo button pressed')
+    // this.imageService.upload();
+  }
 
  // Share Collection
  // TODO: Delete

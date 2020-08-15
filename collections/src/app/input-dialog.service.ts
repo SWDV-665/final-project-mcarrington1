@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { ActionSheetController } from '@ionic/angular';
 import { CollectionsService } from './collections.service';
+import { ImageService } from './image.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InputDialogService {
-  
+
 async showAlertConfirmation(collection) {
   const alert = await this.alertCtrl.create({
     header: 'Confirmation',
@@ -53,6 +55,15 @@ async showAlertConfirmation(collection) {
       
       buttons: [
         {
+          text: 'Add Image',
+          handler: data => {
+            console.log('Capture Image clicked');
+            this.imageService.takeSnap();
+            // TODO: Populate the collection.image reference here
+            return false;
+          }
+        },
+        {
           text: 'Cancel',
           handler: data => {
             console.log('Cancel clicked');
@@ -79,5 +90,5 @@ async showAlertConfirmation(collection) {
 
     await alert.present();
   }
-  constructor(public dataService: CollectionsService, public alertCtrl: AlertController) { }
+  constructor(public dataService: CollectionsService, public alertCtrl: AlertController, public imageService: ImageService) { }
 }
