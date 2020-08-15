@@ -1,0 +1,27 @@
+<!-- my-modal.page.html -->
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{itemName}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <h5><B>Description</B></h5>
+          {{itemDescription}}
+        <h5><b>Condition</b></h5>
+          {{itemCondition}}
+        <h5><b>Quantity</b></h5>
+          {{itemQuantity}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-footer>
+    <ion-toolbar>
+      <ion-button (click)="closeModal()" color="danger">Close</ion-button>
+    </ion-toolbar>
+  </ion-footer>
+</ion-content>

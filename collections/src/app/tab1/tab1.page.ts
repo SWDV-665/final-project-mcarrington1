@@ -7,6 +7,10 @@ import { InputDialogService } from '../input-dialog.service';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { ImageService } from '../image.service'; // DELETE
 
+// Modal
+import { ModalController } from '@ionic/angular';
+import { CollectionDetailPage } from '../modals/collection-detail/collection-detail.page';
+
 
 @Component({
   selector: 'app-tab1',
@@ -20,7 +24,7 @@ export class Tab1Page {
   collections = [];
   errorMessage: string;
 
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController, public dataService: CollectionsService, public inputDialogService: InputDialogService, public socialSharing: SocialSharing, public imageService: ImageService) {
+  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController, public dataService: CollectionsService, public inputDialogService: InputDialogService, public imageService: ImageService, public modalController: ModalController) {
     dataService.dataChanged$.subscribe((dataChanged: boolean) => {
       this.loadCollections();
     });
@@ -39,6 +43,21 @@ export class Tab1Page {
         );
   }
 
+  // modal
+  async openModal(collection) {
+    const modal = await this.modalController.create({
+      component: CollectionDetailPage,
+      componentProps: {
+        "itemName": collection.name,
+        "itemDescription": collection.description,
+        "itemCondition": collection.condition,
+        "itemQuantity": collection.quantity,
+        "itemImage": collection.image,
+        "itemBarcode": collection.barcode
+      }
+    });
+    return await modal.present();
+  }
    // Add Collection
   addCollection() {
     console.log('Adding Collection...');
@@ -58,38 +77,10 @@ export class Tab1Page {
     //this.dataService.removeCollection(collection);
  }
 
- // DELETE
+ // In for Debug Purposes
  async takePhoto() {
    console.log('take photo button pressed')
    
    this.imageService.pickImage();
  }
-
-  // DELETE
-  async uploadPhoto() {
-    console.log('upload photo button pressed')
-    // this.imageService.upload();
-  }
-
- // Share Collection
- // TODO: Delete
- async shareCollection(collection, index){
-  console.log("Sharing collection -", collection, index);
-  const toast = await this.toastCtrl.create({
-    message: 'Sharing collection - ' + index + " ...",
-    duration: 3000
-  });
-  toast.present();
-  
-  let message = "Collection Item - Name : " + collection.name + " - Quantity: " + collection.quantity;
-  let subject = "Shared via Groceries app";
-
-  this.socialSharing.share(message, subject).then(() => {
-    // Sharing via email is possible
-    console.log("Shared successfully!")
-  }).catch((error) => {
-    // Sharing via email is not possible
-    console.error("Error while sharing ", error)
-  });
-}
 }

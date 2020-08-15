@@ -24,3 +24,20 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.custom-alert button.alert-button-group {
+    width: 33.33%;
+}
+
+.custom-alert .alert-button-group .button-inner {
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.custom-alert .alert-button-group-vertical {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row ;
+}

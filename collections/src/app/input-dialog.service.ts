@@ -30,14 +30,13 @@ async showAlertConfirmation(collection) {
       }
     ]
   });
-
   await alert.present();
 }
 
   async showAlert(collection?, index?) {
     const alert = await this.alertCtrl.create({
+      // cssClass: 'custom-alert',
       header: collection? 'Edit Collection' : 'Add Collection',
-      message: collection? 'Please edit collection...' : "Please enter collection...",
       inputs: [
         {
           name: 'name',
@@ -50,6 +49,18 @@ async showAlertConfirmation(collection) {
           type: 'text',
           value: collection? collection.description: null,
           placeholder: 'Description'
+        },
+        {
+          name: 'condition',
+          type: 'text',
+          value: collection? collection.condition: null,
+          placeholder: 'Condition'
+        },
+        {
+          name: 'quantity',
+          type: 'number',
+          value: collection? collection.quantity: null,
+          placeholder: 'Quantity'
         }
       ],
       

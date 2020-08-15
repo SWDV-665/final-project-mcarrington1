@@ -15,7 +15,7 @@
   </div>
   <ion-list>
       <ion-item-sliding *ngFor="let collection of collections; let i = index">
-        <ion-item>
+        <ion-item (click)="openModal(collection)">
           <ion-label>
             <h2>{{collection.name}}</h2>
             <p>{{collection.description}}</p>

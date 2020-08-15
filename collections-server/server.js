@@ -26,6 +26,8 @@ app.use(function (req, res, next) {
 var Collection = mongoose.model('Collection', {
     name: String,
     description: String,
+    condition: String,
+    quantity: Number,
     image: String,
     barcode: Number
 });
@@ -129,6 +131,8 @@ app.post('/api/collections', function (req, res) {
     Collection.create({
         name: req.body.name,
         description: req.body.description,
+        condition: req.body.condition,
+        quantity: req.body.quantity,
         image: req.body.image,
         barcode: req.body.barcode,
         done: false
@@ -152,8 +156,10 @@ app.put('/api/collections/:id', function (req, res) {
     const collection = {
         name: req.body.name,
         description: req.body.description,
+        condition: req.body.condition,
+        quantity: req.body.quantity,
         image: req.body.image,
-        barcode: req.body.barcode
+        barcode: req.body.barcode,
     };
     console.log("Updating item - ", req.params.id);
     Collection.update({_id: req.params.id}, collection, function (err, raw) {
