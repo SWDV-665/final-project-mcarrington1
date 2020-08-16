@@ -1,9 +1,6 @@
 // my-modal.page.ts
 import { Component, OnInit } from '@angular/core';
-import { 
-ModalController, 
-NavParams 
-} from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-collection-detail',
@@ -32,12 +29,11 @@ export class CollectionDetailPage implements OnInit {
     this.itemCondition = this.navParams.data.itemCondition || "No known condition";
     this.itemQuantity = this.navParams.data.itemQuantity || "Unknown";
     this.itemImage = this.navParams.data.itemImage || "No Image";
-    this.itemBarcode = this.navParams.data.itemBarcode || "No Barcode";
+    this.itemBarcode = this.navParams.data.itemBarcode || "No barcode"
   }
 
   async closeModal() {
     const onClosedData: string = "Wrapped Up!";
     await this.modalController.dismiss(onClosedData);
   }
-
 }

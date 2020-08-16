@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Create New Item</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <h5><B>Description</B></h5>
+          {{itemDescription}}
+        <h5><b>Condition</b></h5>
+          {{itemCondition}}
+        <h5><b>Quantity</b></h5>
+          {{itemQuantity}}
+        <h5><b>Image</b></h5>
+          <img data-src="{{itemImage}}">
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+  <ion-item>
+    <ion-label>Name</ion-label>
+    <ion-input type="string" [(ngModel)]="data.name" name="name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Description</ion-label>
+    <ion-textarea type="string" [(ngModel)]="data.description" name="description"></ion-textarea>
+  </ion-item>
+  <ion-item>
+    <ion-label>Condition</ion-label>
+    <ion-input type="string" [(ngModel)]="data.condition" name="condition"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Quantity</ion-label>
+    <ion-input type="number" [(ngModel)]="data.quantity" name="quantity"></ion-input>
+  </ion-item>
+
+  <ion-button (click)="capturePhoto()" color="primary">
+    <ion-icon name="camera-outline"></ion-icon>
+  </ion-button>
+
+  <ion-footer>
+    <ion-toolbar>
+      <ion-button (click)="closeModal()" color="danger">Cancel</ion-button>
+      <ion-button (click)="submitData()" color="secondary">Submit</ion-button>
+    </ion-toolbar>
+  </ion-footer>
+</ion-content>

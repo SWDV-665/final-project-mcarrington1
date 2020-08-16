@@ -10,7 +10,7 @@ var cors = require('cors');
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/collections");
 
 app.use(bodyParser.urlencoded({'extended': 'true'}));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.json({type: 'application/vnd.api+json'}));
 app.use(methodOverride());
 app.use(cors());

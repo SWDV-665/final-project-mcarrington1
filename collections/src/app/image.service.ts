@@ -4,6 +4,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { HttpClient } from '@angular/common/http'; // TEMPORARY
 import { Observable } from 'rxjs'; // TEMPORARY
 import { File } from "@ionic-native/file/ngx";
+import { CollectionsService } from './collections.service'; // TEMPORARY
 
 
  //image to be displayed in template
@@ -13,18 +14,62 @@ import { File } from "@ionic-native/file/ngx";
 })
 export class ImageService {
 
+
+
+
+
   capturedSnapURL:string;
   image;
   imageData;
 
-  // cameraOptions: CameraOptions = {
-  //   quality: 20,
-  //   destinationType: this.camera.DestinationType.DATA_URL,
-  //   encodingType: this.camera.EncodingType.JPEG,
-  //   mediaType: this.camera.MediaType.PICTURE
-  // }
 
-  constructor(private camera: Camera, private http: HttpClient, private file: File) { }
+    // Attempt 3 at image uploading...
+
+    async getImage() {
+
+      let picture;
+
+      const options: CameraOptions = {
+        quality: 100,
+        allowEdit: true,
+        encodingType: this.camera.EncodingType.JPEG,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        sourceType: this.camera.PictureSourceType.CAMERA,
+        saveToPhotoAlbum: false
+      }
+
+      picture = 'data:image/jpeg;base64,' + await this.camera.getPicture(options);
+
+      return picture;
+
+      let postData = {
+        "image": picture
+      }
+
+      // this.collectionService.addCollection(postData);
+
+      // return picture;
+
+
+      // //By putting getAndroid permissions in here - this shouldn't trigger on webview w/ the Cordova error, we'll see
+      // //this.getAndroidPermissions()
+      // this.camera.getPicture(options).then((imageData) => {
+    
+      //   //this.imagesource = 'data:image/jpeg;base64,' + imageData;
+      //   picture = 'data:image/jpeg;base64,' + imageData;
+      //   console.log("Picture is :: " + picture);
+      //   return picture;
+      
+      // }, (err)=> {
+      //   alert("Please run App in Android Phone to enable Cordova/Camera Functionality")
+      //   console.log("Camera functionality not available outside of Android App, error here:", err);
+        
+      // });
+    }
+
+    // try to create a promise for this one
+
+  constructor(private camera: Camera, private http: HttpClient, private file: File, private collectionService: CollectionsService) { }
 
   /// NEW
 
@@ -35,7 +80,31 @@ export class ImageService {
         destinationType: this.camera.DestinationType.FILE_URI,
         encodingType: this.camera.EncodingType.JPEG,
         mediaType: this.camera.MediaType.ALLMEDIA,
-        // sourceType : this.camera.PictureSourceType.PHOTOLIBRARY
+        sourceType : this.camera.PictureSourceType.CAMERA
+      };
+
+      let cameraInfo = await this.camera.getPicture(options);
+      let blobInfo = await this.makeFileIntoBlob(cameraInfo);
+
+      this.uploadBlob(blobInfo);
+
+      // let uploadInfo: any = await this.uploadToFirebase(blobInfo);
+
+      alert("File Upload Success ");
+    } catch (e) {
+      console.log(e.message);
+      alert("File Upload Error " + e.message);
+    }
+  }
+
+  async pickImageTwo() {
+    try {
+      const options: CameraOptions = {
+        quality: 80,
+        destinationType: this.camera.DestinationType.FILE_URI,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.ALLMEDIA,
+        sourceType : this.camera.PictureSourceType.CAMERA
       };
 
       let cameraInfo = await this.camera.getPicture(options);
@@ -76,7 +145,7 @@ export class ImageService {
         .then(buffer => {
           // get the buffer and make a blob to be saved
           let imgBlob = new Blob([buffer], {
-            type: "image/jpeg"
+            type: "data:image/jpeg;base64"
           });
           console.log(imgBlob.type, imgBlob.size);
           resolve({

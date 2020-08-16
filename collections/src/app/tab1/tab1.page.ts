@@ -10,6 +10,7 @@ import { ImageService } from '../image.service'; // DELETE
 // Modal
 import { ModalController } from '@ionic/angular';
 import { CollectionDetailPage } from '../modals/collection-detail/collection-detail.page';
+import { CollectionCreatePage } from '../modals/collection-create/collection-create.page';
 
 
 @Component({
@@ -44,6 +45,7 @@ export class Tab1Page {
   }
 
   // modal
+  // TODO: Rename?
   async openModal(collection) {
     const modal = await this.modalController.create({
       component: CollectionDetailPage,
@@ -58,6 +60,14 @@ export class Tab1Page {
     });
     return await modal.present();
   }
+
+  async openCreateModal() {
+    const modal = await this.modalController.create({
+      component: CollectionCreatePage,
+    });
+    return await modal.present();
+  }
+
    // Add Collection
   addCollection() {
     console.log('Adding Collection...');

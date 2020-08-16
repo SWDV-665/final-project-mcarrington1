@@ -69,8 +69,13 @@ async showAlertConfirmation(collection) {
           text: 'Add Image',
           handler: data => {
             console.log('Capture Image clicked');
-            this.imageService.pickImage();
+            // this.imageService.pickImage();
             // TODO: Populate the collection.image reference here
+
+              // let imageReference = this.imageService.getImage();
+              // console.log(imageReference);
+              // data.image = imageReference;
+
             return false;
           }
         },
@@ -86,12 +91,13 @@ async showAlertConfirmation(collection) {
             console.log('Saved clicked :: ', data);
             if (index !== undefined){
 
+              // TODO: additional fields are missing
               collection.name = data.name;
               collection.description = data.description;
             
               this.dataService.editCollection(collection, index);
             }
-            else{
+            else {
               this.dataService.addCollection(data);
             }
           }
