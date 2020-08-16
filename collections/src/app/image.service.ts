@@ -93,7 +93,7 @@ export class ImageService {
     const date = new Date().valueOf();
   
     // Replace extension according to your media type
-    const imageName = date+ '.jpeg';
+    const imageName = date+ '.jpg';
     // call method that creates a blob from dataUri
     // const imageBlob = this.dataURItoBlob(this.imageData);
     // const imageFile = new File([imageBlob], imageName, { type: 'image/jpeg' })

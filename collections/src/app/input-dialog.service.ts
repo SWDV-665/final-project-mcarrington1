@@ -69,7 +69,7 @@ async showAlertConfirmation(collection) {
           text: 'Add Image',
           handler: data => {
             console.log('Capture Image clicked');
-            this.imageService.takeSnap();
+            this.imageService.pickImage();
             // TODO: Populate the collection.image reference here
             return false;
           }
