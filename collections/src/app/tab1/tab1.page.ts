@@ -25,7 +25,14 @@ export class Tab1Page {
   collections = [];
   errorMessage: string;
 
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController, public dataService: CollectionsService, public inputDialogService: InputDialogService, public imageService: ImageService, public modalController: ModalController) {
+  constructor(
+    public navCtrl: NavController, 
+    public toastCtrl: ToastController, 
+    public alertCtrl: AlertController, 
+    public dataService: CollectionsService, 
+    public inputDialogService: InputDialogService, 
+    public imageService: ImageService, 
+    public modalController: ModalController) {
     dataService.dataChanged$.subscribe((dataChanged: boolean) => {
       this.loadCollections();
     });
@@ -61,10 +68,24 @@ export class Tab1Page {
     return await modal.present();
   }
 
-  async openCreateModal() {
+  // Open Add Modal
+  async openAddModal() {
     const modal = await this.modalController.create({
       component: CollectionCreatePage,
     });
+    return await modal.present();
+  }
+
+  // Open Edit Modal
+  async openEditModal(collection, index) {
+    const modal = await this.modalController.create({
+      component: CollectionCreatePage,
+      componentProps: {
+        "collection": collection, 
+        "index": index
+      }
+    });
+    console.log('Collection sent is :: ' , collection);
     return await modal.present();
   }
 
@@ -84,13 +105,5 @@ export class Tab1Page {
  async removeCollection(collection) {
     console.log("Remove collection Button Clicked :: ", collection);
     this.inputDialogService.showAlertConfirmation(collection)
-    //this.dataService.removeCollection(collection);
- }
-
- // In for Debug Purposes
- async takePhoto() {
-   console.log('take photo button pressed')
-   
-   this.imageService.pickImage();
  }
 }

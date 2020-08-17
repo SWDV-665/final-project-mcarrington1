@@ -14,20 +14,17 @@ import { ImageService } from '../../image.service';
 })
 export class CollectionCreatePage implements OnInit {
 
-  // itemName: string = "default";
-  // itemDescription: string;
-  // itemCondition: string;
-  // itemQuantity: number;
-  // itemImage: string;
-  // itemBarcode: number
-
   data: any = { 
     name: '', 
     description: '', 
     condition: '', 
     quantity: '',
-    image: '' 
+    image: null
   };
+
+  collection;
+  index;
+  pageTitle = "Add New Item";
 
   constructor(
     private modalController: ModalController,
@@ -38,12 +35,11 @@ export class CollectionCreatePage implements OnInit {
 
   ngOnInit() {
     console.table(this.navParams);
-    // this.itemName = this.navParams.data.itemName || "Unknown";
-    // this.itemDescription = this.navParams.data.itemDescription || "No known description";
-    // this.itemCondition = this.navParams.data.itemCondition || "No known condition";
-    // this.itemQuantity = this.navParams.data.itemQuantity || "Unknown";
-    // this.itemImage = this.navParams.data.itemImage || "No Image";
-    // this.itemBarcode = this.navParams.data.itemBarcode || "No Barcode";
+
+    this.collection = this.navParams.data.collection;
+    this.index = this.navParams.data.index;
+
+    this.determineModifyMode(this.collection, this.index);
   }
 
   async capturePhoto() {
@@ -55,26 +51,29 @@ export class CollectionCreatePage implements OnInit {
     await this.modalController.dismiss(onClosedData);
   }
 
-  // TODO: if we're handling updates, we need to make this conditional
   async submitData() {
     const onClosedData: string = "Wrapped Up!";
-    this.dataService.addCollection(this.data);
-    await this.modalController.dismiss(onClosedData);
+
+    if (this.index === undefined) {
+      this.dataService.addCollection(this.data);
+      await this.modalController.dismiss(onClosedData);
+    } else {
+      this.dataService.editCollection(this.data, this.index);
+      await this.modalController.dismiss(onClosedData);
+    }
   }
 
+  // This determines if we're going to create new or modify
   determineModifyMode(collection?, index?) {
-    if (collection != null) {
+    if (this.collection !== undefined) {
+      console.log('setting values for edit mode');
       this.data.name = collection.name;
       this.data.description = collection.description;
       this.data.condition = collection.condition;
       this.data.quantity = collection.quantity;
       this.data.image = collection.image;
+      this.data._id = collection._id;
+      this.pageTitle = collection.name;
     }
-  }
-
-  printDataDebug() {
-    // this.data.name = 'default';
-    // this.data.password = 'default';
-    console.log("Data :: " + this.data)
   }
 }

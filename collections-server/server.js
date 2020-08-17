@@ -165,9 +165,12 @@ app.put('/api/collections/:id', function (req, res) {
     Collection.update({_id: req.params.id}, collection, function (err, raw) {
         if (err) {
             res.send(err);
+            return;
         }
         res.send(raw);
+        return;
     });
+    return;
 });
 
 

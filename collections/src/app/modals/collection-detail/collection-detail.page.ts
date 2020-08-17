@@ -28,8 +28,8 @@ export class CollectionDetailPage implements OnInit {
     this.itemDescription = this.navParams.data.itemDescription || "No known description";
     this.itemCondition = this.navParams.data.itemCondition || "No known condition";
     this.itemQuantity = this.navParams.data.itemQuantity || "Unknown";
-    this.itemImage = this.navParams.data.itemImage || "No Image";
-    this.itemBarcode = this.navParams.data.itemBarcode || "No barcode"
+    this.itemImage = this.navParams.data.itemImage || "";
+    this.itemBarcode = this.navParams.data.itemBarcode || "No barcode";
   }
 
   async closeModal() {

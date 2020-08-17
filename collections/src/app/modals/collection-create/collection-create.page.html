@@ -1,25 +1,10 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Create New Item</ion-title>
+    <ion-title>{{pageTitle}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-
-  <!-- <ion-grid>
-    <ion-row>
-      <ion-col text-center>
-        <h5><B>Description</B></h5>
-          {{itemDescription}}
-        <h5><b>Condition</b></h5>
-          {{itemCondition}}
-        <h5><b>Quantity</b></h5>
-          {{itemQuantity}}
-        <h5><b>Image</b></h5>
-          <img data-src="{{itemImage}}">
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
   <ion-item>
     <ion-label>Name</ion-label>
     <ion-input type="string" [(ngModel)]="data.name" name="name"></ion-input>
@@ -37,9 +22,19 @@
     <ion-input type="number" [(ngModel)]="data.quantity" name="quantity"></ion-input>
   </ion-item>
 
-  <ion-button (click)="capturePhoto()" color="primary">
-    <ion-icon name="camera-outline"></ion-icon>
-  </ion-button>
+  <ion-item>
+    <ion-label>Capture Image</ion-label>
+    <ion-button (click)="capturePhoto()" color="primary">
+      <ion-icon name="camera-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
+
+  <ion-item *ngIf="data.image != null || data.image != undefined">
+    <ion-label>Image Preview</ion-label>
+    <ion-thumbnail>
+      <img data-src="{{data.image}}">
+    </ion-thumbnail>
+  </ion-item>
 
   <ion-footer>
     <ion-toolbar>
