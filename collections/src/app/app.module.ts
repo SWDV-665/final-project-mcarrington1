@@ -16,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { File, FileEntry } from '@ionic-native/file/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 import { CameraPreview } from '@ionic-native/camera-preview/ngx';
-// import { FilePath } from '@ionic-native/file-path/ngx';
+import { Device } from '@ionic-native/device/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +28,7 @@ import { CameraPreview } from '@ionic-native/camera-preview/ngx';
     SocialSharing,
     Camera,
     File,
+    Device,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

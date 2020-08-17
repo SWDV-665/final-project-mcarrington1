@@ -3,13 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-//import 'rxjs/add/operator/map';
-
-/*
-  Generated class for the GroceriesServiceProvider provider.
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 
 @Injectable({
 	providedIn: 'root'

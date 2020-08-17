@@ -1,5 +1,5 @@
 {
-  "name": "groceries",
+  "name": "collections",
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
@@ -23,6 +23,7 @@
     "@ionic-native/camera": "^5.27.0",
     "@ionic-native/camera-preview": "^5.27.0",
     "@ionic-native/core": "^5.0.7",
+    "@ionic-native/device": "^5.20.0",
     "@ionic-native/file": "^5.28.0",
     "@ionic-native/file-path": "^5.27.0",
     "@ionic-native/ionic-webview": "^5.27.0",

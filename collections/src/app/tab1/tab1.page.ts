@@ -89,17 +89,17 @@ export class Tab1Page {
     return await modal.present();
   }
 
-   // Add Collection
-  addCollection() {
-    console.log('Adding Collection...');
-    this.inputDialogService.showAlert();
-  } 
+  //  // Add Collection
+  // addCollection() {
+  //   console.log('Adding Collection...');
+  //   this.inputDialogService.showAlert();
+  // } 
 
-  // Edit Collection
-  async editCollection(collection, index) {
-    console.log('Edit collection Clicked - ', collection, index);
-    this.inputDialogService.showAlert(collection, index);
-  }
+  // // Edit Collection
+  // async editCollection(collection, index) {
+  //   console.log('Edit collection Clicked - ', collection, index);
+  //   this.inputDialogService.showAlert(collection, index);
+  // }
 
   // Remove Collection
  async removeCollection(collection) {

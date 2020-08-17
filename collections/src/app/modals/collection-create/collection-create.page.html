@@ -22,7 +22,7 @@
     <ion-input type="number" [(ngModel)]="data.quantity" name="quantity"></ion-input>
   </ion-item>
 
-  <ion-item>
+  <ion-item *ngIf="devicePlatform !== null">
     <ion-label>Capture Image</ion-label>
     <ion-button (click)="capturePhoto()" color="primary">
       <ion-icon name="camera-outline"></ion-icon>

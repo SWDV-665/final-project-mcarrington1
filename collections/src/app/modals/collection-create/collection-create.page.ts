@@ -3,6 +3,8 @@ import { ModalController, NavParams } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { CollectionsService } from '../../collections.service';
 import { ImageService } from '../../image.service';
+import { Platform } from '@ionic/angular'; // remove
+import { Device } from '@ionic-native/device/ngx';
 
 
 
@@ -25,13 +27,17 @@ export class CollectionCreatePage implements OnInit {
   collection;
   index;
   pageTitle = "Add New Item";
+  devicePlatform: string;
 
   constructor(
     private modalController: ModalController,
     private navParams: NavParams,
     public dataService: CollectionsService,
-    public imageService: ImageService
-  ) { }
+    public imageService: ImageService,
+    public device: Device
+  ) { 
+      this.devicePlatform = device.platform; // this drives whether or not the camera functionality appears
+  }
 
   ngOnInit() {
     console.table(this.navParams);
@@ -42,6 +48,7 @@ export class CollectionCreatePage implements OnInit {
     this.determineModifyMode(this.collection, this.index);
   }
 
+  // Grab image from our image service
   async capturePhoto() {
     this.data.image = await this.imageService.getImage();
   }
@@ -51,6 +58,7 @@ export class CollectionCreatePage implements OnInit {
     await this.modalController.dismiss(onClosedData);
   }
 
+  // Submit data to our REST API
   async submitData() {
     const onClosedData: string = "Wrapped Up!";
 
