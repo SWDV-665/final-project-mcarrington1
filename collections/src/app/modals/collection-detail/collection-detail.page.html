@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>{{itemName}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()" color="primary" class="close-button">
+        <ion-icon name="close-circle-sharp" slot="icon-only" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -20,9 +25,4 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-footer>
-    <ion-toolbar>
-      <ion-button (click)="closeModal()" color="danger">Close</ion-button>
-    </ion-toolbar>
-  </ion-footer>
 </ion-content>
