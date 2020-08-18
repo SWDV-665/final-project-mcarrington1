@@ -6,11 +6,11 @@ import { CollectionsService } from '../collections.service';
 import { InputDialogService } from '../input-dialog.service';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { ImageService } from '../image.service'; // DELETE
-
 // Modal
 import { ModalController } from '@ionic/angular';
 import { CollectionDetailPage } from '../modals/collection-detail/collection-detail.page';
 import { CollectionCreatePage } from '../modals/collection-create/collection-create.page';
+// Pull down to refresh
 
 
 @Component({
@@ -53,7 +53,7 @@ export class Tab1Page {
 
   // modal
   // TODO: Rename?
-  async openModal(collection) {
+  async openDetailModal(collection) {
     const modal = await this.modalController.create({
       component: CollectionDetailPage,
       componentProps: {
