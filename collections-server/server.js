@@ -28,83 +28,8 @@ var Collection = mongoose.model('Collection', {
     description: String,
     condition: String,
     quantity: Number,
-    image: String,
-    barcode: Number
+    image: String
 });
-
-
-// AWS / S3 Upload - WIP
-const multer  = require('multer');
-const multerS3 = require('multer-s3');
-const AWS = require('aws-sdk');
-
-const s3 = new AWS.S3({
-    accessKeyId: 'AKIAJKW2FKPIXXIZFKHA',
-    secretAccessKey: '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',
-    region: 'us-east-2'
-});
-
-const uploadS3 = multer({
-    storage: multerS3({
-      s3: s3,
-      acl: 'public-read',
-      bucket: 'swdv665-mcarrington-final',
-      metadata: (req, file, cb) => {
-        cb(null, {fieldName: file.fieldname})
-      },
-      key: (req, file, cb) => {
-        cb(null, file.originalname)
-        // cb(null, Date.now().toString() + '-' + file.originalname)
-      }
-    })
-  });
-
-    // temporary file upload to AWS
-    app.post('/upload', uploadS3.single('file'),(req, res) => {
-        console.log(req.file);
-        console.log("Location is :: " + req.file.location);
-      });
-
-//AWS.config.loadFromPath('./s3_config.json');
-//var s3 = new AWS.S3();
-
-
-  // Multer + MongoDB Storage - WIP
-
-  var storage = multer.memoryStorage()
-var upload = multer({ storage: storage })
-
-
-//   var storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//       cb(null, 'uploads')
-//     },
-//     filename: function (req, file, cb) {
-//       cb(null, file.fieldname + '-' + Date.now())
-//     }
-//   })
-
-//   const upload = multer({inMemory: true});
-
-  app.post('/uploadphoto', upload.single('picture'), (req, res) => {
-	var img = req.file.buffer;
-    var encode_image = img.toString('base64');
-    // Define a JSONobject for the image attributes for saving to database
- 
-    var finalImg = {
-        contentType: req.file.mimetype,
-        image:  new Buffer(encode_image, 'base64')
-    };
-
-    Collection.create(finalImg, (err, result) => {
-        console.log(result)
-
-        if (err) return console.log(err)
-
-        console.log('saved to database')    
-  })
-})
-
 
 // Get all collections items
 app.get('/api/collections', function (req, res) {
@@ -176,7 +101,7 @@ app.put('/api/collections/:id', function (req, res) {
 
 // Delete a collections Item
 app.delete('/api/collections/:id', function (req, res) {
-    console.log("Deleting item - ", req.params._id)
+    console.log("Deleting item - ", req.params.id)
     Collection.remove({
         _id: req.params.id
     }, function (err, collection) {

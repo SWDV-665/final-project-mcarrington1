@@ -53,7 +53,7 @@ export class Tab1Page {
 
   // modal
   // TODO: Rename?
-  async openDetailModal(collection) {
+  async openDetailModal(collection, ionItemSliding) {
     const modal = await this.modalController.create({
       component: CollectionDetailPage,
       componentProps: {
