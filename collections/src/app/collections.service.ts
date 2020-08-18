@@ -15,7 +15,7 @@ export class CollectionsService {
 
   private dataChangeSubject: Subject<boolean>;
 
-  baseURL = 'http://localhost:8080';
+  baseURL = 'https://collections-server-mcarrington.herokuapp.com';
 
   constructor(private http: HttpClient) {
     console.log('Hello Collections');
