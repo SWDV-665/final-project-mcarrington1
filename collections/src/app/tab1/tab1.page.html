@@ -20,6 +20,9 @@
             <h2>{{collection.name}}</h2>
             <p>{{collection.description}}</p>
           </ion-label>
+          <ion-thumbnail *ngIf="collection.image != null || collection.image != undefined">
+            <img data-src="{{collection.image}}">
+          </ion-thumbnail>
         </ion-item>
         <ion-item-options>
           <ion-item-option (click)="openEditModal(collection, i)" ion-button color="secondary" icon-start>
