@@ -5,12 +5,9 @@ import { AlertController } from '@ionic/angular';
 import { CollectionsService } from '../collections.service';
 import { InputDialogService } from '../input-dialog.service';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-import { ImageService } from '../image.service'; // DELETE
-// Modal
 import { ModalController } from '@ionic/angular';
 import { CollectionDetailPage } from '../modals/collection-detail/collection-detail.page';
 import { CollectionCreatePage } from '../modals/collection-create/collection-create.page';
-// Pull down to refresh
 
 
 @Component({
@@ -31,7 +28,6 @@ export class Tab1Page {
     public alertCtrl: AlertController, 
     public dataService: CollectionsService, 
     public inputDialogService: InputDialogService, 
-    public imageService: ImageService, 
     public modalController: ModalController) {
     dataService.dataChanged$.subscribe((dataChanged: boolean) => {
       this.loadCollections();
@@ -52,8 +48,7 @@ export class Tab1Page {
   }
 
   // modal
-  // TODO: Rename?
-  async openDetailModal(collection, ionItemSliding) {
+  async openDetailModal(collection) {
     const modal = await this.modalController.create({
       component: CollectionDetailPage,
       componentProps: {
@@ -88,18 +83,6 @@ export class Tab1Page {
     console.log('Collection sent is :: ' , collection);
     return await modal.present();
   }
-
-  //  // Add Collection
-  // addCollection() {
-  //   console.log('Adding Collection...');
-  //   this.inputDialogService.showAlert();
-  // } 
-
-  // // Edit Collection
-  // async editCollection(collection, index) {
-  //   console.log('Edit collection Clicked - ', collection, index);
-  //   this.inputDialogService.showAlert(collection, index);
-  // }
 
   // Remove Collection
  async removeCollection(collection) {
