@@ -6,7 +6,7 @@ Collections app is a simple app that will allow you to capture information about
 
 This has been tested on Web and Android, has not been tested on iOS.
 
-This was created by me, M.J. Carrington.
+This was created by me, M.J. Carrington.You can also check out a video walkthrough in the root of the repo.
 
 ## Features
 - View a list of your collection items
@@ -23,6 +23,7 @@ This was created by me, M.J. Carrington.
 
 ## Coming Soon Features
 - Ability to group into sub-collections
+- Ability to scan in barcodes
 - Add multiple photos
 - Capability to upload images from the web client
 - Image uploading / saving optimizations
